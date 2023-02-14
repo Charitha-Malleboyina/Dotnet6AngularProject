@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <title>Bootstrap Simple Registration Form</title>
+</head>
+<style>
+ select:not(:valid) {
+  color: #999;
+}
+    </style>
+<body>
+    <!-- Reactive form -->
+    <div class="signup-form">
+        <!-- Pills navs -->
+        <form [formGroup]="RegisterForm" (ngSubmit)="AddUser()">
+            <h2>Register</h2>
+            <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" formControlName="first_name" name="first_name"
+                            placeholder="First Name" required>
+                        <div
+                            *ngIf="RegisterForm.controls['first_name'].invalid && (RegisterForm.controls['first_name'].touched || RegisterForm.controls['first_name'].dirty)">
+                            <span class="error" *ngIf="RegisterForm.controls['first_name'].errors?.['required']">*First
+                                Name is Required.</span>
+                            <span class="error" *ngIf="RegisterForm.controls['first_name'].errors?.['pattern']">*Enter
+                                only characters.</span>
+                        </div>
+                    </div>
+                    <div class="col"><input type="text" class="form-control" formControlName="last_name"
+                            name="last_name" placeholder="Last Name" required>
+                        <div
+                            *ngIf="RegisterForm.controls['last_name'].invalid && (RegisterForm.controls['last_name'].touched || RegisterForm.controls['last_name'].dirty)">
+                            <span class="error" *ngIf="RegisterForm.controls['last_name'].errors?.['required']">*Last
+                                Name is Required.</span>
+                            <span class="error" *ngIf="RegisterForm.controls['last_name'].errors?.['pattern']">*Enter
+                                only characters.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" formControlName="email" name="email" placeholder="Email"
+                    required>
+                <div
+                    *ngIf="RegisterForm.controls['email'].invalid && (RegisterForm.controls['email'].touched|| RegisterForm.controls['email'].dirty)">
+                    <span class="error" *ngIf="RegisterForm.controls['email'].errors?.['required']">*Email Id is
+                        Required.</span>
+                    <span class="error" *ngIf="RegisterForm.controls['email'].errors?.['pattern']">*Enter valid email
+                        address.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-control" formControlName="mobile_no" name="mobile_no"
+                    placeholder="Mobile No" required>
+                <div
+                    *ngIf="RegisterForm.controls['mobile_no'].invalid && (RegisterForm.controls['mobile_no'].touched|| RegisterForm.controls['mobile_no'].dirty)">
+                    <span class="error" *ngIf="RegisterForm.controls['mobile_no'].errors?.['required']">*Mobile number
+                        is Required.</span>
+                    <span class="error" *ngIf="RegisterForm.controls['mobile_no'].errors?.['pattern']">*Enter valid
+                        mobile number.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="password" name="password"
+                    placeholder="Password" required>
+                <div *ngIf="RegisterForm.controls['password'].invalid && (RegisterForm.controls['password'].touched )">
+                    <span class="error" *ngIf="RegisterForm.controls['password'].errors?.['required']">*Password is
+                        Required.</span>
+                    <span class="error" *ngIf="RegisterForm.controls['password'].errors?.['pattern']">*Enter valid
+                        password.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" formControlName="confirm_password" name="confirm_password"
+                    placeholder="Confirm Password" required>
+                <div
+                    *ngIf="RegisterForm.controls['confirm_password'].invalid && (RegisterForm.controls['confirm_password'].touched )">
+                    <span class="error" *ngIf="RegisterForm.controls['confirm_password'].errors?.['required']">*Password
+                        is Required.</span>
+                    <span class="error" *ngIf="checkIfMatchingPasswords">
+                        Password does not match
+                    </span>
+                </div>
+            </div>
+            <div  class="form-group" placeholder="Select role">
+                <select class="form-control" name="role" formControlName="role">
+                <option value="" selected disabled hidden style="color: gray;">Please Choose...</option>
+                <option *ngFor="let role of Roles"> {{role.roles}} </option>                      
+                </select>
+                <div
+                *ngIf="RegisterForm.controls['role'].invalid && (RegisterForm.controls['role'].touched )">
+                <span class="error" *ngIf="RegisterForm.controls['role'].errors?.['required']">*Select one role</span>
+                    </div>
+            </div>
+           
+            <!-- <div class="form-group">
+                <label class="form-check-label"><input type="checkbox"  name="check" required [ngModel] #check="ngModel">
+                    I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            </div> -->
+            <div class="form-group">
+                <button type="submit" value="submit" class="btn-lg btn-block">Register Now</button>
+            </div>
+
+        </form>
+        <div class="form-group">
+            <button class="btn-lg btn-block" (click)="getUsers()">Get all users</button>
+        </div>
+        <div class="text-center">Already have an account? <a [routerLink]="['/Login']" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">Sign in</a></div>
+    </div>
+
+</body>
+
+</html>
